@@ -6,7 +6,7 @@ authors = [
     {name = "richard viana",email = "al.richard.viana@impatech.org.br"}
 ]
 readme = "README.md"
-requires-python = "3.12"
+requires-python = "3.12.10"
 dependencies = [
 ]
 
