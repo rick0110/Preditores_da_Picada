@@ -18,22 +18,17 @@ This repository hosts a machine learning project to predict dengue cases across 
 - [License](#license)
 
 ## Project Description
-This project uses machine learning to predict dengue case counts per Brazilian state. It leverages Python libraries like scikit-learn, pandas, and TensorFlow for data preprocessing, model training, and evaluation. State-specific models are stored in the `models/` directory as `.pkl` files. Jupyter notebooks in `notebooks/estados/` handle exploratory data analysis, modeling, and evaluation.
+This project uses machine learning to predict dengue case counts per Brazilian state. Jupyter notebooks in `notebooks/states/` handle exploratory data analysis, modeling, and evaluation.
 
 ## Repository Structure
 ```
 dengue-prediction/
 ├── data/                    # Datasets (raw and processed, ignored by Git)
-│   └── raw/                # Place raw data files here
 ├── notebooks/               # Jupyter notebooks for analysis and modeling
-│   └── estados/            # State-specific notebooks for EDA, modeling, and evaluation
+│   └── states/            # State-specific notebooks for EDA, modeling, and evaluation
 ├── src/                     # Reusable scripts for preprocessing, modeling, and evaluation
 │   ├── __init__.py         # Makes src a Python module
-│   ├── preprocessing.py    # Data cleaning and preprocessing scripts
-│   ├── models.py           # Model definitions and training logic
-│   └── evaluation.py       # Model evaluation and visualization
 ├── models/                  # Trained models saved as .pkl files (ignored by Git)
-├── docs/                    # Documentation and shared resources
 ├── project.toml             # Poetry configuration file for dependencies
 ├── initialize_directories.sh # Script to create project directories
 ├── README.md                # Project documentation (this file)
@@ -47,13 +42,11 @@ This project uses four main folders. To create them, run the `initialize_directo
 bash initialize_directories.sh
 ```
 
-The first folder is `src/`, containing all reusable code (e.g., preprocessing, modeling, evaluation). All scripts and notebooks should be written and saved in this folder or its subdirectories. Run scripts from the `src/` directory.
+The first folder is `src/`, containing all reusable scripts. All scripts should be written and saved in this folder.
 
-The second folder is `data/`, where datasets are stored. This folder is ignored by Git to avoid uploading sensitive data. Before running the project, place your raw data files in `data/raw/`.
+The second folder is `data/`, where datasets are stored. This folder is ignored by Git to avoid uploading data. Before running the project, place your raw data files in `data/`.
 
-The third folder is `models/`, where trained models are saved as `.pkl` files. This folder is also ignored by Git.
-
-The fourth folder is `docs/`, for shared documentation and resources. This folder is tracked by Git.
+The third folder is `models/`, where trained models are saved preferably as `.pkl` files. if the model is very large avoid commit.
 
 ### Install pyenv and Poetry
 Install `pyenv` to manage Python versions:
@@ -93,15 +86,10 @@ Install project dependencies:
 poetry install
 ```
 
-Install a filter for Jupyter notebooks to strip outputs before committing:
+Install a filter for Jupyter notebooks to strip outputs before committing(this step is optional):
 ```bash
 poetry shell
 nbstripout --install --attributes .gitattributes
-```
-
-Install pre-commit hooks for code quality:
-```bash
-pre-commit install
 ```
 
 Activate the virtual environment:
@@ -130,7 +118,7 @@ Ensure the `.venv/bin/python` interpreter is selected in VS Code.
 Run Jupyter notebooks for state-specific analysis:
 ```bash
 poetry shell
-jupyter notebook notebooks/estados/
+jupyter notebook notebooks/states/
 ```
 
 ### Scripts
@@ -143,40 +131,10 @@ python src/main.py
 ### Models
 Train and save state-specific models as `.pkl` files in `models/` using scripts in `src/models.py`.
 
-## Data
-Datasets include:
-- Historical dengue case counts per state
-- Weather data (e.g., temperature, humidity, rainfall)
-- Demographic data (e.g., population density)
-
-Place datasets in `data/raw/`. The `data/` folder is ignored by Git. Refer to `docs/data_format.md` for the expected format. Sample data can be sourced from the Brazilian Ministry of Health or WHO.
-
-## Contributing
-To contribute:
-1. Fork the repository.
-2. Create a branch:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. Commit changes:
-   ```bash
-   git commit -m "Add feature X"
-   ```
-4. Push and create a pull request:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-See `docs/CONTRIBUTING.md` for details and `docs/CODE_OF_CONDUCT.md` for the code of conduct.
-
 ## GitHub Workflow
 - **Issues**: Report bugs or suggest features via GitHub Issues.
-- **Pull Requests**: Changes are reviewed via pull requests. Ensure tests pass and follow `docs/STYLE_GUIDE.md`.
 - **Branches**:
   - `main`: Stable code.
-  - `dev`: Feature integration.
-  - Feature/bug branches: `feature/feature-name` or `bug/bug-name`.
-- **CI/CD**: Tests run via GitHub Actions (see `.github/workflows/ci.yml`).
-- **Releases**: Tagged as `vX.Y.Z`.
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file.
