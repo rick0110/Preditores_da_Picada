@@ -1,0 +1,48 @@
+# Byte-compiled / temporary files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+env/
+venv/
+.poetry/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# DVC cache and lock files
+*.dvc
+.cache/
+.dvc/
+
+# Dados (brutos, processados, etc.)
+data/
+*.csv
+*.tsv
+*.xlsx
+*.json
+*.pkl
+
+# Relatórios gerados
+reports/figures/
+reports/metrics/
+
+# Configurações de IDEs / editores
+.vscode/
+.idea/
+
+# Arquivos de log e temporários
+*.log
+*.tmp
+
+# Arquivos de ambiente
+.env
+.env.*
+
+# Dependências geradas automaticamente
+poetry.lock
+
+# Outros arquivos específicos
+*.bak
