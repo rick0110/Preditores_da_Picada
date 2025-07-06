@@ -1,7 +1,7 @@
 # Preditores_da_Picada
 
 [![Python](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache2.0-green.svg)](LICENSE)
 [![Poetry](https://img.shields.io/badge/poetry-v1.8.3-blue.svg)](https://python-poetry.org/)
 
 ## Overview
