@@ -37,7 +37,7 @@ dengue-prediction/
 ```
 
 ## Setup Instructions
-This project uses four main folders. To create them, run the `initialize_directories.sh` script from the `dengue-prediction/` directory:
+This project uses four main folders. To create them, run the `initialize_directories.sh` script from the `Preditores_da_Picada/` directory:
 ```bash
 bash initialize_directories.sh
 ```
