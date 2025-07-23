@@ -8,14 +8,40 @@ from epiweeks import Week
 import gc
 
 
-states = ['MG']
+states = ufs = [
+    "AC",  # Acre
+    "AL",  # Alagoas
+    "AP",  # Amapá
+    "AM",  # Amazonas
+    "BA",  # Bahia
+    "CE",  # Ceará
+    "DF",  # Distrito Federal
+    "ES",  # Espírito Santo
+    "GO",  # Goiás
+    "MA",  # Maranhão
+    "MT",  # Mato Grosso
+    "MS",  # Mato Grosso do Sul
+    "MG",  # Minas Gerais
+    "PA",  # Pará
+    "PB",  # Paraíba
+    "PR",  # Paraná
+    "PE",  # Pernambuco
+    "PI",  # Piauí
+    "RJ",  # Rio de Janeiro
+    "RN",  # Rio Grande do Norte
+    "RS",  # Rio Grande do Sul
+    "RO",  # Rondônia
+    "RR",  # Roraima
+    "SC",  # Santa Catarina
+    "SP",  # São Paulo
+    "SE",  # Sergipe
+    "TO"   # Tocantins
+]
 
 def load_data(df, state, start_date="2017-02-01", end_date="2025-04-01"):
-    # Filtrar e processar de forma eficiente
     df_filtered = df[df['uf'] == state]
     if df_filtered.empty:
         return df_filtered.copy()
-    # Converter tipos apenas se necessário
     if not pd.api.types.is_datetime64_any_dtype(df_filtered['date']):
         df_filtered = df_filtered.copy()
         df_filtered['date'] = pd.to_datetime(df_filtered['date'], format='%Y-%m-%d', errors='coerce')
@@ -64,7 +90,6 @@ def get_epiweek_dates(start_year, start_week, end_year, end_week):
     return dates
 
 def preprocess_data(df):
-    # Processar agrupamento de forma eficiente
     if df.empty:
         return pd.DataFrame(columns=['date', 'cases'])
     if not pd.api.types.is_datetime64_any_dtype(df['date']):
@@ -75,14 +100,12 @@ def preprocess_data(df):
     df_grouped = df_grouped.rename(columns={'casos': 'cases'})
     return df_grouped.sort_values(by='date').reset_index(drop=True)
 
-api_key = "rick0110:414cf362-4ca0-4a50-84ff-e432ff083471"
-
 arquivo = "./../data/dengue.csv.gz"
 colunas = ["date", "casos", "uf"]
 
 
 
-validations = {'validation1': [(2010, 40), (2022, 25), (2022, 41), (2023, 40)],
+validations ={'validation1': [(2010, 40), (2022, 25), (2022, 41), (2023, 40)],
               'validation2': [(2010, 40), (2023, 25), (2023, 41), (2024, 40)],
               'validation3': [(2010, 40), (2024, 25), (2024, 41), (2025, 40)],
               'forecast': [(2010, 40), (2025, 25), (2025, 41), (2026, 40)]}
@@ -138,14 +161,14 @@ for validation, weeks in validations.items():
         epiweek_dates = get_epiweek_dates(validation_start[0], validation_start[1], 
                                         validation_end[0], validation_end[1])
         
-        forecast = model1_fit.get_forecast(steps=52)
+        forecast = model1_fit.get_forecast(steps=52 + 15)
         
-        conf_int_95 = forecast.conf_int(alpha=0.05)
-        conf_int_90 = forecast.conf_int(alpha=0.10)
-        conf_int_80 = forecast.conf_int(alpha=0.20)
-        conf_int_50 = forecast.conf_int(alpha=0.50)
-        
-        pred = np.exp(forecast.predicted_mean) - 0.1
+        conf_int_95 = forecast.conf_int(alpha=0.05)[15:]
+        conf_int_90 = forecast.conf_int(alpha=0.10)[15:]
+        conf_int_80 = forecast.conf_int(alpha=0.20)[15:]
+        conf_int_50 = forecast.conf_int(alpha=0.50)[15:]
+
+        pred = np.exp(forecast.predicted_mean)[15:] - 0.1
         del forecast
         gc.collect()
 
@@ -162,7 +185,7 @@ for validation, weeks in validations.items():
         lower_80 = np.exp(conf_int_80[:, 0]) - 0.1
         upper_80 = np.exp(conf_int_80[:, 1]) - 0.1
         del conf_int_80
-        
+
         lower_50 = np.exp(conf_int_50[:, 0]) - 0.1
         upper_50 = np.exp(conf_int_50[:, 1]) - 0.1
 
@@ -215,9 +238,9 @@ for validation, weeks in validations.items():
         forecast_df.to_csv(output_file, index=False)
 
         res = mosqlient.upload_prediction(
-        model_id = 107, 
-        description = 'test for sprint 2025 preds of Sarima', 
-        commit = None,
+        model_id = 108, 
+        description = '2025 - Sarima - Preditores da picada', 
+        commit = "3ecdebdb594d1d4574de45648e2a88fb9924e16c",
         predict_date = '2025-07-22', 
         prediction = forecast_df,
         adm_1=state,
