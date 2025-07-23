@@ -75,8 +75,6 @@ def preprocess_data(df):
     df_grouped = df_grouped.rename(columns={'casos': 'cases'})
     return df_grouped.sort_values(by='date').reset_index(drop=True)
 
-api_key = "rick0110:414cf362-4ca0-4a50-84ff-e432ff083471"
-
 arquivo = "./../data/dengue.csv.gz"
 colunas = ["date", "casos", "uf"]
 
