@@ -53,7 +53,6 @@ The prediction model is built using SARIMA (Seasonal ARIMA without eXogenous var
 - **Order**: SARIMAX(2,1,2) x (2,1,2,52)
   - Non-seasonal: AR(2), I(1), MA(2)
   - Seasonal: AR(2), I(1), MA(2) with 52-week periodicity
-- **External regressors**: Climatic variables and receptivity index
 - **Validation**: Out-of-sample forecasting performance
 
 ### Mathematical Foundation
