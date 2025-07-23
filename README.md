@@ -5,20 +5,73 @@
 [![Poetry](https://img.shields.io/badge/poetry-v1.8.3-blue.svg)](https://python-poetry.org/)
 
 ## Overview
-This repository hosts a machine learning project to predict dengue cases across Brazilian states using historical data, weather patterns, and demographic information. The goal is to develop state-specific predictive models to assist public health officials in managing dengue outbreaks. Models are saved as `.pkl` files for reusability.
+This repository hosts a machine learning project to predict dengue cases across Brazilian states using SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous variables) time series modeling. The goal is to develop state-specific predictive models to assist public health officials in managing dengue outbreaks using historical epidemiological data and climatic variables.
 
 ## Table of Contents
 - [Project Description](#project-description)
+- [Methodology](#methodology)
 - [Repository Structure](#repository-structure)
 - [Setup Instructions](#setup-instructions)
 - [Usage](#usage)
 - [Data](#data)
 - [Contributing](#contributing)
-- [GitHub Workflow](#github-workflow)
 - [License](#license)
 
 ## Project Description
-This project uses machine learning to predict dengue case counts per Brazilian state. Jupyter notebooks in `notebooks/states/` handle exploratory data analysis, modeling, and evaluation.
+This project uses SARIMAX time series modeling to predict dengue case counts per Brazilian state. The methodology uses temporal patterns to achieve this. Jupyter notebooks in `notebooks/states/` handle exploratory data analysis, and modeling, with detailed implementation shown in `rio_de_janeiro_arima.ipynb`.
+
+## Methodology
+
+### SARIMAX Model Framework
+The prediction model is built using SARIMA (Seasonal ARIMA without eXogenous variables), implemented as described in `/notebooks/states/rio_de_janeiro_arima.ipynb`. This approach combines:
+
+1. **Seasonal ARIMA Components**:
+   - **AutoRegressive (AR)**: Past dengue cases influence current cases
+   - **Integrated (I)**: Differencing to achieve stationarity
+   - **Moving Average (MA)**: Past forecast errors improve current predictions
+   - **Seasonal**: Weekly and yearly seasonal patterns (52-week cycle)
+
+### Data Processing Pipeline
+
+1. **Data Extraction**: InfoDengue API integration for epidemiological surveillance data
+2. **Aggregation**: Municipal to state-level aggregation
+   - Cases: Sum across municipalities
+   - Climatic variables: Mean across municipalities
+   - Population and receptivity: Average values
+
+3. **Preprocessing**:
+   - Log transformation: `log(cases + 0.1)` for variance stabilization
+   - Weekly temporal resolution
+   - Handling of zero values and missing data
+
+4. **Time Series Analysis**:
+   - STL Decomposition (Seasonal-Trend decomposition using LOESS)
+   - Stationarity testing with Augmented Dickey-Fuller test
+   - Autocorrelation autocorrelation analysis
+
+### Model Configuration
+- **Order**: SARIMAX(2,1,2) x (2,1,2,52)
+  - Non-seasonal: AR(2), I(1), MA(2)
+  - Seasonal: AR(2), I(1), MA(2) with 52-week periodicity
+- **External regressors**: Climatic variables and receptivity index
+- **Validation**: Out-of-sample forecasting performance
+
+### Mathematical Foundation
+The SARIMAX model follows the equation:
+```
+φ(B)Φ(B^s)(1-B)^d(1-B^s)^D y_t = θ(B)Θ(B^s)ε_t + β'X_t
+```
+Where:
+- φ(B), Φ(B^s): Non-seasonal and seasonal AR polynomials
+- θ(B), Θ(B^s): Non-seasonal and seasonal MA polynomials
+- d, D: Non-seasonal and seasonal differencing orders
+- X_t: External variables (temperature, humidity, receptivity)
+- β: Regression coefficients for external variables
+
+### Validation Framework
+- **Temporal validation**: Sequential train-test splits respecting time order
+- **Epidemiological weeks**: EW 41 2010 to EW 25 for training periods
+- **Forecast horizons**: 52-week ahead predictions
 
 ## Repository Structure
 ```
@@ -26,14 +79,13 @@ dengue-prediction/
 ├── data/                    # Datasets (raw and processed, ignored by Git)
 ├── notebooks/               # Jupyter notebooks for analysis and modeling
 │   └── states/            # State-specific notebooks for EDA, modeling, and evaluation
-├── src/                     # Reusable scripts for preprocessing, modeling, and evaluation
-│   ├── __init__.py         # Makes src a Python module
+├── src/                     # Reusable scripts for preprocessing, modeling, and evaluation    
 ├── models/                  # Trained models saved as .pkl files (ignored by Git)
 ├── project.toml             # Poetry configuration file for dependencies
 ├── initialize_directories.sh # Script to create project directories
 ├── README.md                # Project documentation (this file)
 ├── .gitignore               # Files and folders to ignore (e.g., *.csv, *.pyc, models/, data/)
-└── LICENSE                  # MIT License
+└── LICENSE                  # Apache License
 ```
 
 ## Setup Instructions
@@ -122,19 +174,38 @@ jupyter notebook notebooks/states/
 ```
 
 ### Scripts
-Execute scripts from the `src/` directory:
+Execute the SARIMAX forecasting script from the `src/` directory:
 ```bash
 poetry shell
-python src/main.py
+python src/Sarima.py
 ```
 
-### Models
-Train and save state-specific models as `.pkl` files in `models/` using scripts in `src/models.py`.
+This script generates forecasts for multiple validation periods and saves results in the `forecasts/` directory.
 
-## GitHub Workflow
-- **Issues**: Report bugs or suggest features via GitHub Issues.
-- **Branches**:
-  - `main`: Stable code.
+### Models
+The SARIMAX model implementation is detailed in `notebooks/states/minas_gerais_arima.ipynb`, which demonstrates:
+- Complete methodology and mathematical foundation
+- Data preprocessing and feature engineering
+- Model fitting and parameter selection
+- Validation and performance evaluation
+- Forecast generation and confidence intervals
+
+## Data
+The project uses data from the InfoDengue surveillance system, which provides:
+- **Epidemiological data**: Weekly dengue cases, population data
+- **Climatic variables**: Temperature and humidity measurements
+- **Vector indices**: Mosquito receptivity indicators
+- **Temporal coverage**: 2010-2025 with weekly resolution
+- **Geographical scope**: All Brazilian states and municipalities
+In the final predictions uploaded, we used the data dengue.csv.gz available in [info.dengue.mat.br](info.dengue.mat.br)
+
+## Contributing
+Contributions are welcome! Please follow these guidelines:
+- Fork the repository and create a feature branch
+- Test your changes with the provided datasets
+- Submit a pull request with a clear description of modifications
+
+For questions about the SARIMAX methodology, refer to the detailed implementation in `notebooks/states/minas_gerais_arima.ipynb`.
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file.
+This project is licensed under the Apache 2.0 License. See the [LICENSE](LICENSE) file for details.
