@@ -179,10 +179,10 @@ poetry shell
 python src/Sarima.py
 ```
 
-This script generates forecasts for multiple validation periods, upload the predictions to [https://api.mosqlimate.org/vis/dashboard/?dashboard=sprint](mosqlimate dashboard plataform), and saves the results in the `forecasts/` directory.
+This script generates forecasts for multiple validation periods, upload the predictions to [mosqlimate dashboard plataform](https://api.mosqlimate.org/vis/dashboard/?dashboard=sprint), and saves the results in the `forecasts/` directory.
 
 ### usage for forecasting
-This work can be used for forecasting new data by only adding the data in `./data` and your `APY_key`of [https://api.mosqlimate.org/](masqlimate data plataform) in `./src/Sarima.py`. Your results can be visualized in [https://api.mosqlimate.org/vis/dashboard/?dashboard=sprint](mosqlimate dashboard plataform).
+This work can be used for forecasting new data by only adding the data in `./data` and your `APY_key`of [masqlimate data plataform](https://api.mosqlimate.org/) in `./src/Sarima.py`. Your results can be visualized in [mosqlimate dashboard plataform](https://api.mosqlimate.org/vis/dashboard/?dashboard=sprint).
 
 ### Models
 The SARIMAX model implementation is detailed in `notebooks/states/minas_gerais_arima.ipynb`, which demonstrates:
