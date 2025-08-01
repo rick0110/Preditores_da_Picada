@@ -5,7 +5,7 @@
 [![Poetry](https://img.shields.io/badge/poetry-v1.8.3-blue.svg)](https://python-poetry.org/)
 
 ## Overview
-This repository hosts a machine learning project to predict dengue cases across Brazilian states using SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous variables) time series modeling. The goal is to develop state-specific predictive models to assist public health officials in managing dengue outbreaks using historical epidemiological data and climatic variables.
+This repository hosts a machine learning project to predict dengue cases across Brazilian states using SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous variables) time series modeling. The goal is to develop state-specific predictive models to assist public health officials in managing dengue outbreaks using historical epidemiological data and climatic variables. The results obtained here can be visualized in [https://api.mosqlimate.org/vis/dashboard/?dashboard=sprint](mosqlimate dashboard plataform), including some evaluations metrics.
 
 ## Table of Contents
 - [Project Description](#project-description)
@@ -179,7 +179,10 @@ poetry shell
 python src/Sarima.py
 ```
 
-This script generates forecasts for multiple validation periods and saves results in the `forecasts/` directory.
+This script generates forecasts for multiple validation periods, upload the predictions to [https://api.mosqlimate.org/vis/dashboard/?dashboard=sprint](mosqlimate dashboard plataform), and saves the results in the `forecasts/` directory.
+
+### usage for forecasting
+This work can be used for forecasting new data by only adding the data in `./data` and your `APY_key`of [https://api.mosqlimate.org/](masqlimate data plataform) in `./src/Sarima.py`. Your results can be visualized in [https://api.mosqlimate.org/vis/dashboard/?dashboard=sprint](mosqlimate dashboard plataform).
 
 ### Models
 The SARIMAX model implementation is detailed in `notebooks/states/minas_gerais_arima.ipynb`, which demonstrates:
