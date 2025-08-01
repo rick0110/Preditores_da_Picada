@@ -5,7 +5,7 @@
 [![Poetry](https://img.shields.io/badge/poetry-v1.8.3-blue.svg)](https://python-poetry.org/)
 
 ## Overview
-This repository hosts a machine learning project to predict dengue cases across Brazilian states using SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous variables) time series modeling. The goal is to develop state-specific predictive models to assist public health officials in managing dengue outbreaks using historical epidemiological data and climatic variables. The results obtained here can be visualized in [https://api.mosqlimate.org/vis/dashboard/?dashboard=sprint](mosqlimate dashboard plataform), including some evaluations metrics.
+This repository hosts a machine learning project to predict dengue cases across Brazilian states using SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous variables) time series modeling. The goal is to develop state-specific predictive models to assist public health officials in managing dengue outbreaks using historical epidemiological data and climatic variables. The results obtained here can be visualized in [mosqlimate dashboard plataform](https://api.mosqlimate.org/vis/dashboard/?dashboard=sprint), including some evaluations metrics.
 
 ## Table of Contents
 - [Project Description](#project-description)
