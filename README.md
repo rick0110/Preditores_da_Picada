@@ -71,7 +71,7 @@ Where:
 - **Epidemiological weeks**: EW 41 2010 to EW 25 for training periods
 - **Forecast horizons**: 52-week ahead predictions
 
-# Validation end forecast
+# Validation and forecast
 
 ## Repository Structure
 ```
