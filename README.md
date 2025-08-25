@@ -5,7 +5,7 @@
 [![Poetry](https://img.shields.io/badge/poetry-v1.8.3-blue.svg)](https://python-poetry.org/)
 
 ## Overview
-This repository hosts a machine learning project to predict dengue cases across Brazilian states using SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous variables) time series modeling. The goal is to develop state-specific predictive models to assist public health officials in managing dengue outbreaks using historical epidemiological data and climatic variables. The results obtained here can be visualized in [mosqlimate dashboard plataform](https://api.mosqlimate.org/vis/dashboard/?dashboard=sprint), including some evaluations metrics.
+This repository hosts a machine learning project to predict dengue cases across Brazilian states using SARIMA (Seasonal AutoRegressive Integrated Moving Average) time series modeling. The goal is to develop state-specific predictive models to assist public health officials in managing dengue outbreaks using historical epidemiological data and climatic variables. The results obtained here can be visualized in [mosqlimate dashboard plataform](https://api.mosqlimate.org/vis/dashboard/?dashboard=sprint), including some evaluations metrics.
 
 ## Table of Contents
 - [Project Description](#project-description)
@@ -18,7 +18,7 @@ This repository hosts a machine learning project to predict dengue cases across 
 - [License](#license)
 
 ## Project Description
-This project uses SARIMAX time series modeling to predict dengue case counts per Brazilian state. The methodology uses temporal patterns to achieve this. Jupyter notebooks in `notebooks/states/` handle exploratory data analysis, and modeling, with detailed implementation shown in `rio_de_janeiro_arima.ipynb`.
+This project uses SARIMA time series modeling to predict dengue case counts per Brazilian state. The methodology uses temporal patterns to achieve this. Jupyter notebooks in `notebooks/states/` handle exploratory data analysis, and modeling, with detailed implementation shown in `rio_de_janeiro_arima.ipynb`.
 
 ## Methodology
 
@@ -58,14 +58,12 @@ The prediction model is built using SARIMA (Seasonal ARIMA without eXogenous var
 ### Mathematical Foundation
 The SARIMAX model follows the equation:
 ```
-φ(B)Φ(B^s)(1-B)^d(1-B^s)^D y_t = θ(B)Θ(B^s)ε_t + β'X_t
+φ(B)Φ(B^s)(1-B)^d(1-B^s)^D y_t = θ(B)Θ(B^s)ε_t
 ```
 Where:
 - φ(B), Φ(B^s): Non-seasonal and seasonal AR polynomials
 - θ(B), Θ(B^s): Non-seasonal and seasonal MA polynomials
 - d, D: Non-seasonal and seasonal differencing orders
-- X_t: External variables (temperature, humidity, receptivity)
-- β: Regression coefficients for external variables
 
 ### Validation Framework
 - **Temporal validation**: Sequential train-test splits respecting time order
