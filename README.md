@@ -10,6 +10,7 @@ This repository hosts a machine learning project to predict dengue cases across 
 ## Table of Contents
 - [Project Description](#project-description)
 - [Methodology](#methodology)
+- [Validation and forecast](#Validation and forecast)
 - [Repository Structure](#repository-structure)
 - [Setup Instructions](#setup-instructions)
 - [Usage](#usage)
@@ -69,6 +70,8 @@ Where:
 - **Temporal validation**: Sequential train-test splits respecting time order
 - **Epidemiological weeks**: EW 41 2010 to EW 25 for training periods
 - **Forecast horizons**: 52-week ahead predictions
+
+# Validation end forecast
 
 ## Repository Structure
 ```
