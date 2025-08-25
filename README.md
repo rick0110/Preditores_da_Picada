@@ -10,7 +10,7 @@ This repository hosts a machine learning project to predict dengue cases across 
 ## Table of Contents
 - [Project Description](#project-description)
 - [Methodology](#methodology)
-- [Validation and forecast](#Validation-and-forecast)
+- [Validation and forecast](#validation-and-forecast)
 - [Repository Structure](#repository-structure)
 - [Setup Instructions](#setup-instructions)
 - [Usage](#usage)
