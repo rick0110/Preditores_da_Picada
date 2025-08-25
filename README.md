@@ -72,6 +72,11 @@ Where:
 - **Forecast horizons**: 52-week ahead predictions
 
 # Validation and forecast
+The validation and forecast were done in four stages:
+1. **Validation test 1.** We predicted the weekly number of dengue cases by state (UF) in the 2022-2023 season [EW 41 2022- EW40 2023], using data covering the period from EW 40 2010 to EW 25 2022;
+2. **Validation test 2.** We predicted the weekly number of dengue cases by state (UF) in the 2023-2024 season [EW 41 2023- EW40 2024], using data covering the period from EW 40 2010 to EW 25 2023;
+3. **Validation test 3.** We predicted the weekly number of dengue cases by state (UF) in the 2024-2025 season [EW 41 2024- EW40 2025], using data covering the period from EW 40 2010 to EW 25 2024;
+4. **Forecast.** And finally we predicted the weekly number of dengue cases in Brazil, and by state (UF), in the 2025-2026 season [EW 41 2025- EW40 2026], using data covering the period from EW 40 2010 to EW 25 2025;
 
 ## Repository Structure
 ```
