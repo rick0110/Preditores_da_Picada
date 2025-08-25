@@ -71,7 +71,7 @@ Where:
 - **Epidemiological weeks**: EW 41 2010 to EW 25 for training periods
 - **Forecast horizons**: 52-week ahead predictions
 
-# Validation and forecast
+## Validation and forecast
 The validation and forecast were done in four stages:
 1. **Validation test 1.** We predicted the weekly number of dengue cases by state (UF) in the 2022-2023 season [EW 41 2022- EW40 2023], using data covering the period from EW 40 2010 to EW 25 2022;
 2. **Validation test 2.** We predicted the weekly number of dengue cases by state (UF) in the 2023-2024 season [EW 41 2023- EW40 2024], using data covering the period from EW 40 2010 to EW 25 2023;
